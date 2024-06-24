@@ -82,7 +82,7 @@ def receive_packets():
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
-    conn = pymysql.connect(host='localhost', user='root', passwd='1234', charset='utf8mb4')
+    conn = pymysql.connect(host='10.0.0.1', user='user', passwd='P@ssw0rd123!')
     logging.info(f"Connected to {conn}")
     cursor = conn.cursor()
 
