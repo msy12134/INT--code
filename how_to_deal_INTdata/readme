@@ -21,3 +21,4 @@ ip link set veth1 up
 打开h1的终端（xterm h1）
 设置完毕
 从宿主机上ping 10.0.0.2，从h1中ping 10.0.0.1都可ping通说明配置完成
+tip：ip link show veth0查看接口的状态信息
