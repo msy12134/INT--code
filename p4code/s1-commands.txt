@@ -1,0 +1,12 @@
+table_add srv6_forward_table srv6_forward 0x86dd => 
+table_add ipv6_lpm ipv6_forward ::100 => 00:00:00:00:00:01 2
+table_add swid set_swid 0x86dd => 1
+table_add select_traffic_class get_traffic_class 10.0.0.2 10.0.0.1 7777 => 1
+table_add select_traffic_class get_traffic_class 10.0.0.2 10.0.0.1 8888 => 2
+table_add select_traffic_class get_traffic_class 10.0.0.2 10.0.0.1 9999 => 3
+table_add select_srv6_path srv6h_srv6list_ipv6_insert 10.0.0.2 1 => 5 00:00:00:00:00:01 00:00:00:00:00:01 ::100 ::200 ::300 ::400 ::500
+table_add select_srv6_path srv6h_srv6list_ipv6_insert 10.0.0.2 2 => 4 00:00:00:00:00:01 00:00:00:00:00:01 ::100 ::260 ::400 ::500 ::
+table_add select_srv6_path srv6h_srv6list_ipv6_insert 10.0.0.2 3 => 5 00:00:00:00:00:01 00:00:00:00:00:01 ::100 ::250 ::350 ::400 ::500
+table_add srv6_forward_table_start srv6_forward 0x86dd =>
+table_add ipv6_lpm_start ipv6_forward ::100 => 00:00:00:00:00:01 2
+
