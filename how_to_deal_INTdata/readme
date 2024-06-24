@@ -1,1 +1,2 @@
 mysql这个python文件就是封装了一些处理INT信息的函数
+发送程序使用：python send.py tcp1 tcp2 tcp3 -t 1 1 1（-t以及后面的数字可以不写，统统默认是一）
