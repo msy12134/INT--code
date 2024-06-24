@@ -54,9 +54,12 @@ def deal_data(conn,cursor,list):
                  "(%s,%s,%s,%s)")
             cursor.execute(sql,(switch_from_id,switch_from_port,switch_to_id,switch_to_port))
             conn.commit()
-        delay=list[i+1].ingress_cur_time-list[i].egress_cur_time
-        throughtput=list[i].egress_packet_count/(list[i].egress_cur_time-list[i].egress_last_time)
-        packet_loss=(list[i].egress_packet_count-list[i+1].ingress_packet_count)/list[i].egress_packet_count
+        delay=(list[i+1].ingress_cur_time-list[i].egress_cur_time)/1000
+        throughtput=list[i].egress_byte_cnt/(list[i].egress_cur_time-list[i].egress_last_time)*1000000
+        if list[i].egress_packet_count==0:
+            packet_loss=0
+        else:
+            packet_loss=(list[i].egress_packet_count-list[i+1].ingress_packet_count)/list[i].egress_packet_count
         sql = "select link_id from links where switch_from_id=%s and switch_from_port=%s and switch_to_id=%s and switch_to_port=%s"
         cursor.execute(sql, (switch_from_id, switch_from_port, switch_to_id, switch_to_port))
         result = cursor.fetchone()
