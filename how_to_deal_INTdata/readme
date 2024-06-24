@@ -2,24 +2,38 @@ mysql这个python文件就是封装了一些处理INT信息的函数
 发送程序使用：python send.py tcp1 tcp2 tcp3 -t 1 1 1（-t以及后面的数字可以不写，统统默认是一）
 
 
+pymysql连接配置（把INT采集到的信息写入数据库内）：
+方法一：（本地连接，远程连接都行）
+  关于如何实现mininet中的终端直接与宿主机通信：
+  首先：/etc/mysql/mysql.conf.d/mysqld.conf文件中的两个地址，需要改成全0，意味着客户端可以从任何地方发起连接请求
+  bind-address		= 0.0.0.0        
+  mysqlx-bind-address	= 0.0.0.0
+  在宿主机上执行如下命令：
+  sudo ip link add veth0 type veth peer name veth1  
+  sudo ip link set veth0 up            
+  sudo ip link set veth1 up
+  上述三条命令的作用就是创建了一对虚拟接口，数据包从一个接口发送出来会直接被另一个接口接收。
+  veth pair经常用于连接Docker容器和宿主机，或在MiniNet中连接虚拟主机和交换机。
+  接下来我们需要知道mininet中的终端在宿主机上的进程ID：
+  ps aux | grep mininet:h1
+  sudo ip link set veth1 netns 4323
+  将veth1接口放入h1之中
+  sudo ip addr add 10.0.0.1/24 dev veth0
+  将宿主机上的接口veth0的ip地址设置一下
+  ip addr add 10.0.0.2/24 dev veth1
+  ip link set veth1 up
+  打开h1的终端（xterm h1）
+  设置完毕
+  从宿主机上ping 10.0.0.2，从h1中ping 10.0.0.1都可ping通说明配置完成
+  tip：ip link show veth0查看接口的状态信息
+  启动mininet的时候会把docker0网络借口down掉，启动mininet后重启docker0即可
 
-关于如何实现mininet中的终端直接与宿主机通信：
-在宿主机上执行如下命令：
-sudo ip link add veth0 type veth peer name veth1  
-sudo ip link set veth0 up            
-sudo ip link set veth1 up
-上述三条命令的作用就是创建了一对虚拟接口，数据包从一个接口发送出来会直接被另一个接口接收。
-veth pair经常用于连接Docker容器和宿主机，或在MiniNet中连接虚拟主机和交换机。
-接下来我们需要知道mininet中的终端在宿主机上的进程ID：
-ps aux | grep mininet:h1
-sudo ip link set veth1 netns 4323
-将veth1接口放入h1之中
-sudo ip addr add 10.0.0.1/24 dev veth0
-将宿主机上的接口veth0的ip地址设置一下
-ip addr add 10.0.0.2/24 dev veth1
-ip link set veth1 up
-打开h1的终端（xterm h1）
-设置完毕
-从宿主机上ping 10.0.0.2，从h1中ping 10.0.0.1都可ping通说明配置完成
-tip：ip link show veth0查看接口的状态信息
-启动mininet的时候会把docker0网络借口down掉，启动mininet后重启docker0即可
+方法二：（只能本地客户端访问本地mysql服务器）
+  直接在pymysql的连接配置中配置
+   conn = pymysql.connect(
+    host='10.0.0.1',
+    user='maomao',
+    password='maoshuoyuA100%',
+    unix_socket="/var/run/mysqld/mysqld.sock"
+)
+重点是最后一行，写上mysql的socket套接字
