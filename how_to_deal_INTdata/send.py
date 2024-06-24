@@ -31,7 +31,7 @@ def send_packet(interval=1):                    #这是一个装饰器，send_ip
             logging.info(f"send packet length {len(packet)} bytes from {iface} interval {interval}")
             packet.show2()
             time.sleep(1)
-            sendp(packet, iface=iface, inter=interval, realtime=True, verbose=True, loop=1)
+            sendp(packet, iface=iface, inter=interval, realtime=True, loop=1)
             return packet
 
         return wrapper
