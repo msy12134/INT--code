@@ -134,6 +134,8 @@ if __name__ == '__main__':
     }
     list_types = args.packet_types
     list_interval = args.t
+    if list_interval==None:
+        list_interval=[]
     if len(list_types) > len(list_interval):                   #让每个发送包的类型都能有一个interval参数对应上，比如tcp1 tcp2 对应 3 1
         for i in range(len(list_types) - len(list_interval)):
             list_interval.append(1)
