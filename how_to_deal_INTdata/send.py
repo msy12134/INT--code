@@ -83,6 +83,16 @@ def send_INT_route3():
              IP(src='10.0.0.1', dst='10.0.0.2', proto=150) / probe_t(data_cnt=0)
     return packet
 
+def send_INT_route():
+    packet = Ether(src=get_if_hwaddr(iface), dst="ff:ff:ff:ff:ff:ff") / \
+             IPv6(nh=43) / srv6h_t(segment_left=0, last_entry=9) / \
+             srv6_list_t(segment_id="::100") / srv6_list_t(segment_id="::200") / \
+             srv6_list_t(segment_id="::300") / srv6_list_t(segment_id="::420") / \
+             srv6_list_t(segment_id="::250") / srv6_list_t(segment_id="::350") / \
+             srv6_list_t(segment_id="::420") / srv6_list_t(segment_id="::260") / \
+             srv6_list_t(segment_id="::400") / srv6_list_t(segment_id="::500") / \
+             IP(src='10.0.0.1', dst='10.0.0.2', proto=150) / probe_t(data_cnt=0)
+    return packet
 
 def send_INT_test():
     packet = Ether(src=get_if_hwaddr(iface), dst="ff:ff:ff:ff:ff:ff") / \
@@ -111,14 +121,14 @@ def send_INT_test():
 
 
 if __name__ == '__main__':
-    #iface = get_if("eth0")
-    iface = "WLAN"
+    iface = get_if("eth0")
+    #iface = "WLAN"
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s  - %(name)s - %(levelname)s - %(message)s')
     logger = logging.getLogger(__name__)
     parser = argparse.ArgumentParser(description="packet sender script")
     parser.add_argument("packet_types", nargs="+",
-                        choices=["tcp1", "tcp2", "tcp3", "route1", "route2", "route3", "test"],
+                        choices=["tcp1", "tcp2", "tcp3", "route1", "route2", "route3", "test","route"],
                         help="types of packet to send")
     parser.add_argument("-t", nargs="*",type=float,
                         help="the interval between sending packets")
@@ -130,7 +140,8 @@ if __name__ == '__main__':
         "route1": send_INT_route1,
         "route2": send_INT_route2,
         "route3": send_INT_route3,
-        "test": send_INT_test
+        "test": send_INT_test,
+        "route": send_INT_route
     }
     list_types = args.packet_types
     list_interval = args.t
