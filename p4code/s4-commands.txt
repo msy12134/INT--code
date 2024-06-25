@@ -1,3 +1,4 @@
 table_add swid set_swid 0x86dd => 4
 table_add srv6_forward_table srv6_forward 0x86dd =>
 table_add ipv6_lpm ipv6_forward ::350 => 00:00:00:00:00:01 2
+table_add ipv6_lpm ipv6_forward ::360 => 00:00:00:00:00:01 1
