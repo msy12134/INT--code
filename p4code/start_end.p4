@@ -12,7 +12,7 @@
  ************* C O N S T A N T S    A N D   T Y P E S  *******************
 **************************************************************************/
 #define MAX_PORTS 255
-#define MAX_HOPS  7
+#define MAX_HOPS  15
 
 const bit<16> TYPE_IPV4 = 0x0800;
 const bit<16> TYPE_IPV6 = 0x86dd;
@@ -334,6 +334,16 @@ control MyIngress(inout headers hdr,
         hdr.srv6_list[2].setInvalid();
         hdr.srv6_list[3].setInvalid();
         hdr.srv6_list[4].setInvalid();
+        hdr.srv6_list[5].setInvalid();
+        hdr.srv6_list[6].setInvalid();
+        hdr.srv6_list[7].setInvalid();
+        hdr.srv6_list[8].setInvalid();
+        hdr.srv6_list[9].setInvalid();
+        hdr.srv6_list[10].setInvalid();
+        hdr.srv6_list[11].setInvalid();
+        hdr.srv6_list[12].setInvalid();
+        hdr.srv6_list[13].setInvalid();
+        hdr.srv6_list[14].setInvalid();
         hdr.ethernet.ether_type=TYPE_IPV4;
     }
 
