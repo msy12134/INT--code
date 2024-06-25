@@ -12,7 +12,7 @@
  ************* C O N S T A N T S    A N D   T Y P E S  *******************
 **************************************************************************/
 #define MAX_PORTS 255
-#define MAX_HOPS  7
+#define MAX_HOPS  15
 
 const bit<16> TYPE_IPV4 = 0x0800;
 const bit<16> TYPE_IPV6 = 0x86dd;
