@@ -19,8 +19,8 @@ def get_if():
     return iface
 
 
-#iface = get_if()
-iface="WLAN"
+iface = get_if()
+#iface="WLAN"
 
 def packet_show(pkt):
     pkt = bytes(pkt)
@@ -82,7 +82,12 @@ def receive_packets():
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
-    conn = pymysql.connect(host='10.0.0.1', user='user', passwd='P@ssw0rd123!')
+    conn = pymysql.connect(
+    host='10.0.0.1',
+    user='maomao',
+    password='maoshuoyuA100%',
+    unix_socket="/var/run/mysqld/mysqld.sock"
+)
     logging.info(f"Connected to {conn}")
     cursor = conn.cursor()
 
