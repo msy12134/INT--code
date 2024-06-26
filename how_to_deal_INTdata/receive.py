@@ -84,9 +84,9 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     conn = pymysql.connect(
     host='10.0.0.1',
-    user='maomao',
-    password='maoshuoyuA100%',
-    unix_socket="/var/run/mysqld/mysqld.sock"
+    user='user',
+    password='password100%',
+    #unix_socket="/var/run/mysqld/mysqld.sock"
 )
     logging.info(f"Connected to {conn}")
     cursor = conn.cursor()
