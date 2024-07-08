@@ -1,0 +1,9 @@
+table_add ipv4_lpm ipv4_forward 10.0.4.2 => 00:00:0a:00:04:02 4
+table_add ipv4_lpm ipv4_forward 10.0.1.1 => 00:00:00:00:00:02 1
+
+table_add srv6_forward_table srv6_forward 0x86dd => 
+table_add swid set_swid 0x86dd => 4
+table_add ipv6_lpm ipv6_forward ::100 => 00:00:0a:00:01:01 1
+table_add ipv6_lpm ipv6_forward ::200 => 00:00:0a:00:01:01 2
+table_add ipv6_lpm ipv6_forward ::300 => 00:00:0a:00:01:01 3
+table_add ipv6_lpm ipv6_forward ::400 => 00:00:0a:00:01:01 4
